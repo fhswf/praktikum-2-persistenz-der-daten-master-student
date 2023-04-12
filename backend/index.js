@@ -1,4 +1,4 @@
-´import express from 'express';
+import express from 'express';
 import DB from './db.js'
 
 const PORT = process.env.PORT || 3000;
