@@ -1,7 +1,10 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/todos';
-const MONGO_DB = process.env.MONGO_DB || 'todos';
+//const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/todos';
+//const MONGO_DB = process.env.MONGO_DB || 'todos';
+
+const MONGO_URI = 'mongodb://localhost:27017/todos';
+const MONGO_DB = 'todos';
 
 let db = null;
 let collection = null;
@@ -19,18 +22,28 @@ export default class DB {
     }
 
     queryById(id) {
-        // TODO: Implement queryById
+
+        const objectId = new ObjectId(id);
+
+        return collection.findOne({ '_id': objectId });
+
     }
 
     update(id, order) {
-        // TODO: Implement update
+
+        const objectId = new ObjectId(id);
+
+        collection.updateOne({ '_id': id }, { $set: order});
+
     }
 
     delete(id) {
-        // TODO: Implement delete
+
+        collection.deleteOne({ '_id': id });
+
     }
 
     insert(order) {
-        // TODO: Implement insert
+        collection.insertOne(order);
     }
 }
